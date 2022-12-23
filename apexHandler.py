@@ -194,6 +194,12 @@ class apexHandler:
         self.privateKey=privateKey
         self.domainName=domainName
         self.httpClient=requests.session()
+
+    def resetKeys(self,apiKey,secretKey,passPhrase,privateKey):
+        self.apiKey=apiKey
+        self.secretKey=secretKey
+        self.passPhrase=passPhrase
+        self.privateKey=privateKey
     
     def getRequest(self,endpoint,**kwargs):
         timeStamp=str(int(time.time()*1000))
@@ -263,6 +269,7 @@ class apexHandler:
                 'APEX-PASSPHRASE': self.passPhrase
         }
         response = self.httpClient.post(self.domainName+endpoint, data=params, headers=headers) # You must specify "Content-Type" to "application/x-www-form-urlencoded" if you put query string into request body
+        print(response.text)
         return response.text
 
     def initCreateOrder(self,symbol,currency):
